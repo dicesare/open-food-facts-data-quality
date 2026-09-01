@@ -22,6 +22,21 @@ jupyter lab notebooks/open_food_facts_quality.ipynb
 
 Place a legally obtained Open Food Facts CSV in `data/raw/`; this directory is ignored by Git. The notebook deliberately contains no local absolute path or embedded data.
 
+## Case-study gallery
+
+The original `master` notebook and six `dev` experiments are represented by five complementary views:
+
+| Study | Focus |
+|---|---|
+| [01 — Qualitative audit](notebooks/01_qualitative_audit.ipynb) | semantics, units, categories and suspicious values |
+| [02 — Quantitative profile](notebooks/02_quantitative_profile.ipynb) | missingness, distributions, cardinality and correlations |
+| [03 — Cleaning decisions](notebooks/03_cleaning_decisions.ipynb) | traceable rules and before/after impact |
+| [04 — Quality scorecard](notebooks/04_quality_scorecard.ipynb) | completeness, validity, uniqueness and consistency |
+| [05 — Interactive delivery](notebooks/05_interactive_delivery.ipynb) | Plotly/Voilà design translated into a lightweight reporting contract |
+| [End-to-end pipeline](notebooks/open_food_facts_quality.ipynb) | executable synthetic example |
+
+The unrelated course-practice notebook is not presented as project evidence; the public story stays focused on health-data preparation.
+
 ## Architecture
 
 ```text
@@ -38,3 +53,4 @@ Cleaning thresholds change the population represented by the dataset. The notebo
 ## License
 
 Code is released under the [MIT License](LICENSE). Open Food Facts data remains governed by its own terms and is not redistributed here.
+
