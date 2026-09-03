@@ -28,6 +28,7 @@ The original `master` notebook and six `dev` experiments are represented by five
 
 | Study | Focus |
 |---|---|
+| **[Recruiter case study](notebooks/00_recruiter_case_study.ipynb)** | **executed 8–10 minute path: historical evidence, architecture, cleaning impact and leakage-aware imputation** |
 | [01 — Qualitative audit](notebooks/01_qualitative_audit.ipynb) | semantics, units, categories and suspicious values |
 | [02 — Quantitative profile](notebooks/02_quantitative_profile.ipynb) | missingness, distributions, cardinality and correlations |
 | [03 — Cleaning decisions](notebooks/03_cleaning_decisions.ipynb) | traceable rules and before/after impact |
@@ -35,6 +36,20 @@ The original `master` notebook and six `dev` experiments are represented by five
 | [05 — Interactive delivery](notebooks/05_interactive_delivery.ipynb) | Plotly/Voilà design translated into a lightweight reporting contract |
 | [End-to-end pipeline](notebooks/open_food_facts_quality.ipynb) | executable synthetic example |
 | [06 — Historical evidence](notebooks/06_historical_evidence.ipynb) | verified dataset scale, missingness and feature-reduction decisions |
+
+## Full historical studies
+
+The compact case studies above are entry points, not substitutes for the original work. Five substantial notebooks from the historical `dev` branch are preserved with their analytical outputs after automated removal of workstation paths and transient metadata:
+
+| Historical notebook | Evidence retained |
+|---|---|
+| [End-to-end preparation — 255 cells](notebooks/historical/P3_01_notebook.ipynb) | selection, cleaning, exploration, imputation and interpretation |
+| [Quantitative study — 210 cells](notebooks/historical/p3_quant.ipynb) | distributions, outliers, correlations, multivariate analysis and PCA |
+| [Qualitative study — 26 cells](notebooks/historical/p3_qual.ipynb) | categorical semantics, missingness combinations and text/category exploration |
+| [Plotly study](notebooks/historical/P3_01_plotly.ipynb) | interactive visual-analysis experiments |
+| [Voilà study](notebooks/historical/P3_01_voila.ipynb) | dashboard-oriented delivery experiment |
+
+These notebooks are explicitly labelled as historical evidence. The maintained implementation in `src/off_quality` demonstrates the current engineering standard: typed domain objects, immutable reports, composable strategies, fit/transform separation and streaming execution. This separation makes the technical progression visible without rewriting history.
 
 The unrelated course-practice notebook is not presented as project evidence; the public story stays focused on health-data preparation.
 
@@ -58,7 +73,8 @@ The [historical notebook inventory](docs/experiment_inventory.md) maps each bran
 
 ```text
 src/off_quality/       validation and cleaning functions
-notebooks/             concise narrative analysis
+notebooks/             recruiter narrative plus sanitised historical evidence
+scripts/               reproducible import and privacy-sanitisation tooling
 tests/                 synthetic, deterministic fixtures
 data/README.md         data provenance instructions
 ```
@@ -67,7 +83,10 @@ data/README.md         data provenance instructions
 
 Cleaning thresholds change the population represented by the dataset. The notebook reports before/after row counts and treats nutrition analysis as exploratory, not medical advice.
 
+## Automated quality gate
+
+The CI enforces linting, strict static typing, unit tests and a fresh execution of the recruiter notebook. Historical notebooks are intentionally excluded from modern linting: they remain evidence of the original exploration, while every maintained module must pass the current engineering standard.
+
 ## License
 
 Code is released under the [MIT License](LICENSE). Open Food Facts data remains governed by its own terms and is not redistributed here.
-

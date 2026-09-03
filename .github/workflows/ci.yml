@@ -10,4 +10,7 @@ jobs:
           python-version: "3.12"
       - run: pip install -e .[dev]
       - run: ruff check .
+      - run: mypy
       - run: pytest
+      - name: Execute recruiter case study
+        run: python scripts/build_recruiter_notebook.py

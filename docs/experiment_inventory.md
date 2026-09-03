@@ -31,4 +31,3 @@ The qualitative study also reports:
 The strongest current competencies demonstrated are schema discovery, missing-data mechanism analysis, domain validation, defensible feature selection, traceable destructive rules and separation of data-quality logic from presentation.
 
 The public code deliberately does not reproduce the historical dataset or hard-code its snapshot. Reproduction requires documenting the Open Food Facts version, licence, extraction date and checksum.
-
