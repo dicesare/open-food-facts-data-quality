@@ -1,7 +1,7 @@
 import pandas as pd
 import pytest
 
-from off_quality import ColumnImputer, ImputationMethod
+from off_quality import ColumnImputer, FittedColumnImputer, ImputationMethod
 
 
 def test_median_is_learned_only_during_fit():
@@ -21,3 +21,18 @@ def test_imputer_rejects_schema_drift():
 
     with pytest.raises(ValueError, match="energy"):
         fitted.transform(pd.DataFrame({"fat": [1.0]}))
+
+
+@pytest.mark.parametrize("method", [ImputationMethod.MEDIAN, ImputationMethod.MEAN])
+def test_numeric_imputer_rejects_all_missing_training_column(method):
+    with pytest.raises(ValueError, match="empty column"):
+        ColumnImputer(("energy",), method).fit(pd.DataFrame({"energy": [float("nan")]}))
+
+
+def test_fitted_values_are_a_defensive_immutable_copy():
+    values = {"energy": 15.0}
+    fitted = FittedColumnImputer(values)
+    values["energy"] = 999.0
+    with pytest.raises(TypeError):
+        fitted.fill_values["energy"] = 999.0
+    assert fitted.transform(pd.DataFrame({"energy": [float("nan")]}))["energy"].item() == 15.0

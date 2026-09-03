@@ -30,6 +30,8 @@ class CleaningPolicy:
     def __post_init__(self) -> None:
         if not 0 <= self.max_missing_ratio <= 1:
             raise ValueError("max_missing_ratio must be between 0 and 1")
+        if self.minimum_barcode_length < 1:
+            raise ValueError("minimum_barcode_length must be positive")
         if self.minimum_barcode_length > self.maximum_barcode_length:
             raise ValueError("minimum_barcode_length cannot exceed maximum_barcode_length")
 

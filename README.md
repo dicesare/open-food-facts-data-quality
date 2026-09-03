@@ -14,13 +14,17 @@ A reproducible data-cleaning case study built on the public Open Food Facts data
 ## Quick start
 
 ```bash
-python -m venv .venv
+python3 -m venv .venv
+source .venv/bin/activate
 pip install -e .[dev]
 pytest
-jupyter lab notebooks/open_food_facts_quality.ipynb
+python scripts/build_recruiter_notebook.py
+jupyter lab notebooks/00_recruiter_case_study.ipynb
 ```
 
-Place a legally obtained Open Food Facts CSV in `data/raw/`; this directory is ignored by Git. The notebook deliberately contains no local absolute path or embedded data.
+Python 3.11 or newer is required. The recruiter notebook runs on the synthetic fixture.
+
+For the separate raw-data notebook, place a legally obtained Open Food Facts CSV in `data/raw/`; this directory is ignored by Git. The raw-data notebook reads tab-separated exports with barcodes preserved as text.
 
 ## Case-study gallery
 
@@ -34,12 +38,12 @@ The original `master` notebook and six `dev` experiments are represented by five
 | [03 — Cleaning decisions](notebooks/03_cleaning_decisions.ipynb) | traceable rules and before/after impact |
 | [04 — Quality scorecard](notebooks/04_quality_scorecard.ipynb) | completeness, validity, uniqueness and consistency |
 | [05 — Interactive delivery](notebooks/05_interactive_delivery.ipynb) | Plotly/Voilà design translated into a lightweight reporting contract |
-| [End-to-end pipeline](notebooks/open_food_facts_quality.ipynb) | executable synthetic example |
+| [End-to-end pipeline](notebooks/open_food_facts_quality.ipynb) | local raw-export workflow (requires a downloaded dataset) |
 | [06 — Historical evidence](notebooks/06_historical_evidence.ipynb) | verified dataset scale, missingness and feature-reduction decisions |
 
 ## Full historical studies
 
-The compact case studies above are entry points, not substitutes for the original work. Five substantial notebooks from the historical `dev` branch are preserved with their analytical outputs after automated removal of workstation paths and transient metadata:
+The compact case studies above are entry points (02–04 use explicitly illustrative numbers), not substitutes for the original work. Five substantial notebooks from the historical `dev` branch are preserved with their analytical outputs after automated removal of workstation paths and transient metadata:
 
 | Historical notebook | Evidence retained |
 |---|---|
@@ -49,7 +53,7 @@ The compact case studies above are entry points, not substitutes for the origina
 | [Plotly study](notebooks/historical/P3_01_plotly.ipynb) | interactive visual-analysis experiments |
 | [Voilà study](notebooks/historical/P3_01_voila.ipynb) | dashboard-oriented delivery experiment |
 
-These notebooks are explicitly labelled as historical evidence. The maintained implementation in `src/off_quality` demonstrates the current engineering standard: typed domain objects, immutable reports, composable strategies, fit/transform separation and streaming execution. This separation makes the technical progression visible without rewriting history.
+These notebooks are explicitly labelled as historical evidence. The maintained implementation in `src/off_quality` demonstrates the current engineering standard: typed domain objects, immutable reports, composable strategies, fit/transform separation and per-chunk execution. `run_stream` cleans each chunk independently: duplicates across chunks and global sparse-column selection require caller coordination. This separation makes the technical progression visible without rewriting history.
 
 The unrelated course-practice notebook is not presented as project evidence; the public story stays focused on health-data preparation.
 
@@ -89,4 +93,4 @@ The CI enforces linting, strict static typing, unit tests and a fresh execution 
 
 ## License
 
-Code is released under the [MIT License](LICENSE). Open Food Facts data remains governed by its own terms and is not redistributed here.
+Code is released under the [MIT License](LICENSE). Open Food Facts data remains governed by its own terms. Historical outputs retain source excerpts; the full raw export is not bundled. The CI fixture is synthetic.

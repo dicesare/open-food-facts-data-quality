@@ -2,8 +2,10 @@
 
 from __future__ import annotations
 
+from collections.abc import Mapping
 from dataclasses import dataclass
 from enum import StrEnum
+from types import MappingProxyType
 from typing import Protocol
 
 import pandas as pd
@@ -28,13 +30,16 @@ class Imputer(Protocol):
 class FittedColumnImputer:
     """Immutable learned state; values must originate from the training split."""
 
-    fill_values: dict[str, object]
+    fill_values: Mapping[str, object]
+
+    def __post_init__(self) -> None:
+        object.__setattr__(self, "fill_values", MappingProxyType(dict(self.fill_values)))
 
     def transform(self, frame: pd.DataFrame) -> pd.DataFrame:
         unknown = set(self.fill_values).difference(frame.columns)
         if unknown:
             raise ValueError(f"Missing columns required by imputer: {sorted(unknown)}")
-        return frame.fillna(self.fill_values)
+        return frame.fillna(dict(self.fill_values))
 
 
 @dataclass(frozen=True, slots=True)
@@ -50,6 +55,8 @@ class ColumnImputer:
         values: dict[str, object] = {}
         for column in self.columns:
             series = frame[column]
+            if self.method in (ImputationMethod.MEDIAN, ImputationMethod.MEAN) and not series.notna().any():
+                raise ValueError(f"Cannot infer a numeric value for empty column: {column}")
             if self.method is ImputationMethod.MEDIAN:
                 values[column] = series.median()
             elif self.method is ImputationMethod.MEAN:
@@ -62,4 +69,3 @@ class ColumnImputer:
             else:
                 values[column] = self.constant
         return FittedColumnImputer(values)
-

@@ -5,12 +5,15 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "open-food-facts-data-quality"
 version = "0.1.0"
-requires-python = ">=3.10"
+requires-python = ">=3.11"
 dependencies = ["pandas>=2.2", "numpy>=1.26"]
 
 [project.optional-dependencies]
 dev = [
     "jupyterlab>=4",
+    "nbclient>=0.10",
+    "nbformat>=5.10",
+    "ipykernel>=6",
     "matplotlib>=3.8",
     "mypy>=1.11",
     "pandas-stubs>=2.2",

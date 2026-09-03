@@ -73,4 +73,3 @@ class DataProfiler:
     def _metric(dimension: QualityDimension, numerator: int, denominator: int) -> QualityMetric:
         score = numerator / denominator if denominator else 1.0
         return QualityMetric(dimension, score, numerator, denominator)
-

@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import argparse
 from pathlib import Path
 
 import nbformat as nbf
@@ -190,7 +191,8 @@ comparison
 **Demonstrated:** wide-table profiling, qualitative and quantitative auditing,
 categorical exploration, missing-data reasoning, iterative experimentation, PCA,
 interactive visualisation, and a modern typed implementation with immutable reports,
-strategies, streaming support and tests.
+strategies, independent per-chunk execution and tests. Cross-chunk deduplication and
+global column selection are not implemented by `run_stream`.
 
 **Not claimed:** medical validity, causal nutritional conclusions, or generalisation
 from the CI fixture. Historical outputs describe a dated snapshot; current Open Food
@@ -218,14 +220,22 @@ Facts data may differ.
             "language_info": {"name": "python", "version": "3.12"},
         },
     )
+    for index, cell in enumerate(notebook.cells):
+        cell.id = f"recruiter-{index:02d}"
     return notebook
 
 
 def main() -> None:
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--output", type=Path, default=OUTPUT)
+    args = parser.parse_args()
     notebook = build_notebook()
     client = NotebookClient(notebook, timeout=120, kernel_name="python3", resources={"metadata": {"path": ROOT}})
     client.execute()
-    nbf.write(notebook, OUTPUT)
+    for cell in notebook.cells:
+        cell.metadata.pop("execution", None)
+    args.output.parent.mkdir(parents=True, exist_ok=True)
+    nbf.write(notebook, args.output)
 
 
 if __name__ == "__main__":

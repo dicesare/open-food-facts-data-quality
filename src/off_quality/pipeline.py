@@ -32,6 +32,8 @@ class NormalizeColumns:
     def apply(self, frame: pd.DataFrame, policy: CleaningPolicy) -> RuleResult:
         result = frame.copy()
         result.columns = result.columns.str.strip().str.replace("-", "_", regex=False)
+        if not result.columns.is_unique:
+            raise ValueError("Column normalization produces duplicate names")
         return RuleResult(result)
 
 
@@ -40,7 +42,10 @@ class DropSparseColumns:
     name: str = "drop_sparse_columns"
 
     def apply(self, frame: pd.DataFrame, policy: CleaningPolicy) -> RuleResult:
-        keep = frame.columns[frame.isna().mean() <= policy.max_missing_ratio]
+        keep = frame.columns[
+            (frame.isna().mean() <= policy.max_missing_ratio)
+            | (frame.columns == policy.barcode_column)
+        ]
         return RuleResult(frame.loc[:, keep].copy())
 
 
@@ -54,7 +59,7 @@ class ValidateBarcodes:
             raise ValueError(f"Missing required column: {column}")
         result = frame.copy()
         result[column] = result[column].astype("string").str.strip()
-        pattern = rf"\d{{{policy.minimum_barcode_length},{policy.maximum_barcode_length}}}"
+        pattern = rf"[0-9]{{{policy.minimum_barcode_length},{policy.maximum_barcode_length}}}"
         valid = result[column].str.fullmatch(pattern, na=False)
         return RuleResult(result.loc[valid].copy(), RejectionReason.INVALID_BARCODE, int((~valid).sum()))
 
@@ -102,5 +107,10 @@ class QualityPipeline:
         )
 
     def run_stream(self, chunks: Iterable[pd.DataFrame]) -> Iterator[tuple[pd.DataFrame, CleaningReport]]:
+        """Process independent chunks; schema selection and deduplication are per chunk.
+
+        This is not equivalent to cleaning the concatenated dataset: callers must
+        handle cross-chunk duplicates and global column selection separately.
+        """
         for chunk in chunks:
             yield self.run(chunk)
