@@ -4,8 +4,9 @@
 
 - Frozen source baseline: `ae5a6b1c6056376cd2cf7e378fa965ece216e33b`.
 - Planning authority: parent infrastructure commit `a6fafb0` and normative implementation-plan amendment `05b`.
-- Current atomic unit: `AU-0`, baseline characterization only.
-- No production behavior, dataset, notebook, dependency declaration or experiment is changed by AU-0.
+- Accepted predecessor: `AU-0` at `b84ad148011e2cdbec5d888c3295faaee49a5a32`.
+- Current atomic unit: `AU-1L`, legacy-boundary validation only.
+- No dataset, notebook, dependency declaration or experiment is authorized by AU-1L.
 
 ## Baseline receipt
 
@@ -30,9 +31,9 @@ The current internal import graph has one orchestration implementation module, `
 | Requirement | Atomic unit | Baseline commit | Contract | Test IDs | Evidence path | Implementation owner | Accepting owner | Status |
 |---|---|---|---|---|---|---|---|---|
 | BASE-SUITE | AU-0 | `ae5a6b1` | Existing behavior remains green | T-BASE-01 | `docs/evidence/au0_baseline.md` | ML Quality Engineer | ML Quality Engineer | PASS |
-| PUBLIC-API | AU-0 | `ae5a6b1` | Fourteen top-level exports and raw signatures remain observable | T-BASE-02 | `docs/evidence/au0_baseline.md` | ML Quality Engineer | Software Architect | PENDING REVIEW |
-| IMPORT-GRAPH | AU-0 | `ae5a6b1` | Current edges and sole `pipeline.py` root are recorded | T-BASE-03 | `docs/evidence/au0_baseline.md` | ML Quality Engineer | Software Architect | PENDING REVIEW |
-| LEGACY-RAW | AU-0 | `ae5a6b1` | Cleaning, extension seam, missingness, imputation and profiling behavior is characterized without provenance claims | T-RAW-01..06 | `docs/evidence/au0_baseline.md` | ML Quality Engineer | Software Architect | PENDING REVIEW |
+| PUBLIC-API | AU-0 | `ae5a6b1` | Fourteen top-level exports and raw signatures remain observable | T-BASE-02 | `docs/evidence/au0_baseline.md` | ML Quality Engineer | Software Architect | PASS |
+| IMPORT-GRAPH | AU-0 | `ae5a6b1` | Current edges and sole `pipeline.py` root are recorded | T-BASE-03 | `docs/evidence/au0_baseline.md` | ML Quality Engineer | Software Architect | PASS |
+| LEGACY-RAW | AU-0 | `ae5a6b1` | Cleaning, extension seam, missingness, imputation and profiling behavior is characterized without provenance claims | T-RAW-01..06 | `docs/evidence/au0_baseline.md` | ML Quality Engineer | Software Architect | PASS |
 
 ## SRT implementation ledger
 
@@ -44,7 +45,7 @@ Status meanings: `PLANNED` is architecture-only; `ACTIVE` is the current unit; `
 | 02 | AU-6 | T-LOCK-01..07 | `docs/evidence/au6_fixture_custody.md` | Release Custodian + Software Red Team | PLANNED |
 | 03 | AU-2B | T-SRC-01..04 | `docs/evidence/au2b_source.md` | Reproducibility Reviewer | PLANNED |
 | 04 | AU-3 | T-PARSE-01..05 | `docs/evidence/au3_parser.md` | Historical Integrity Reviewer | PLANNED |
-| 05 | AU-1L | T-LEG-01..04 | `docs/evidence/au1l_legacy.md` | Software Red Team | PLANNED |
+| 05 | AU-1L | T-LEG-01..04 | `docs/evidence/au1l_legacy.md` | Software Red Team | VALIDATION |
 | 06 | AU-5A | T-ART-01..08 | `docs/evidence/au5a_transactions.md` | Software Red Team | PLANNED |
 | 07 | AU-0..10 | T-MOD-01 | `docs/evidence/module_callers.md` | Software Architect + Software Red Team | ACTIVE |
 | 08 | AU-1, AU-10A..C | T-ROOT-01..04, T-CLI-01..03 | `docs/evidence/composition_root.md` | Software Red Team | PLANNED |
@@ -63,6 +64,6 @@ Status meanings: `PLANNED` is architecture-only; `ACTIVE` is the current unit; `
 | E6–E8 logic | AU-9A/B | BLOCKED by preceding fixture-only gates |
 | Real E0–E8 execution | later execution plan | BLOCKED; outside implementation authority |
 
-## AU-0 exit gate
+## Current gate
 
-AU-0 passes only when the original 18 tests plus T-BASE-02/T-BASE-03 pass, Ruff and mypy remain green, the diff contains no production source change, and an independent reviewer confirms that the tests characterize rather than redefine behavior. The next possible handoff is AU-1L; it is not authorized until AU-0 receives PASS.
+AU-0 received independent PASS at `b84ad14`, authorizing AU-1L only. AU-1L remains in validation until T-LEG-01..04, the full regression suite, Ruff, strict mypy, compilation and independent Software Red Team review pass. AU-1, data access, notebook execution, publication and push remain unauthorized.

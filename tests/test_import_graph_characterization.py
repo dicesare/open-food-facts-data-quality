@@ -7,7 +7,7 @@ EXPECTED_INTERNAL_IMPORTS = {
     "__init__": {"cleaning", "domain", "imputation", "pipeline", "profiling"},
     "cleaning": {"domain", "pipeline"},
     "domain": set(),
-    "imputation": set(),
+    "imputation": {"domain"},
     "pipeline": {"domain"},
     "profiling": {"domain"},
 }

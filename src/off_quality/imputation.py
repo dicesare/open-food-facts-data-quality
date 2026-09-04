@@ -10,6 +10,8 @@ from typing import Protocol
 
 import pandas as pd
 
+from .domain import _warn_legacy_entry_point
+
 
 class ImputationMethod(StrEnum):
     MEDIAN = "median"
@@ -36,6 +38,7 @@ class FittedColumnImputer:
         object.__setattr__(self, "fill_values", MappingProxyType(dict(self.fill_values)))
 
     def transform(self, frame: pd.DataFrame) -> pd.DataFrame:
+        _warn_legacy_entry_point("FittedColumnImputer.transform")
         unknown = set(self.fill_values).difference(frame.columns)
         if unknown:
             raise ValueError(f"Missing columns required by imputer: {sorted(unknown)}")
@@ -49,6 +52,7 @@ class ColumnImputer:
     constant: object = "unknown"
 
     def fit(self, frame: pd.DataFrame) -> FittedColumnImputer:
+        _warn_legacy_entry_point("ColumnImputer.fit")
         missing = set(self.columns).difference(frame.columns)
         if missing:
             raise ValueError(f"Cannot fit imputer; missing columns: {sorted(missing)}")

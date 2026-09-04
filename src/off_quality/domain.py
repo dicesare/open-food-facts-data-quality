@@ -2,10 +2,47 @@
 
 from __future__ import annotations
 
+import warnings
 from collections.abc import Mapping
 from dataclasses import dataclass, field
 from enum import StrEnum
 from types import MappingProxyType
+
+
+class LegacyEvidenceStatus(StrEnum):
+    LEGACY_UNPROVENANCED = "LEGACY_UNPROVENANCED"
+
+
+class LegacyEvidenceTransitionError(ValueError):
+    """Raised when a raw-frame call requests a non-legacy classification."""
+
+
+class LegacyUnprovenancedWarning(DeprecationWarning):
+    """Marks a compatible raw-frame call as unsuitable for evidence."""
+
+    @property
+    def evidence_status(self) -> LegacyEvidenceStatus:
+        return LegacyEvidenceStatus.LEGACY_UNPROVENANCED
+
+
+def _warn_legacy_entry_point(
+    entry_point: str,
+    *,
+    requested_status: LegacyEvidenceStatus = LegacyEvidenceStatus.LEGACY_UNPROVENANCED,
+) -> None:
+    if requested_status is not LegacyEvidenceStatus.LEGACY_UNPROVENANCED:
+        raise LegacyEvidenceTransitionError(
+            f"{entry_point} cannot produce evidence or change its "
+            "LEGACY_UNPROVENANCED classification"
+        )
+    warnings.warn(
+        LegacyUnprovenancedWarning(
+            f"{entry_point} is a raw-frame compatibility API classified as "
+            "LEGACY_UNPROVENANCED; it cannot produce E0-E8 evidence or "
+            "REPRODUCED status"
+        ),
+        stacklevel=3,
+    )
 
 
 class QualityDimension(StrEnum):
