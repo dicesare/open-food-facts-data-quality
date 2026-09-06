@@ -4,7 +4,7 @@ import pytest
 from off_quality import DataProfiler, QualityDimension
 
 
-def test_profile_exposes_aggregate_quality_evidence():
+def test_profile_exposes_aggregate_quality_evidence() -> None:
     data = pd.DataFrame({"code": ["1", "1", "2"], "energy": [10.0, None, 30.0]})
 
     profile = DataProfiler().profile(data)
