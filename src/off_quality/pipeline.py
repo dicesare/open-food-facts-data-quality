@@ -8,7 +8,12 @@ from typing import Protocol
 
 import pandas as pd
 
-from .domain import CleaningPolicy, CleaningReport, RejectionReason
+from .domain import (
+    CleaningPolicy,
+    CleaningReport,
+    RejectionReason,
+    _warn_legacy_entry_point,
+)
 
 
 @dataclass(frozen=True, slots=True)
@@ -93,6 +98,10 @@ class QualityPipeline:
         self._rules = tuple(rules)
 
     def run(self, frame: pd.DataFrame) -> tuple[pd.DataFrame, CleaningReport]:
+        _warn_legacy_entry_point("QualityPipeline.run")
+        return self._run(frame)
+
+    def _run(self, frame: pd.DataFrame) -> tuple[pd.DataFrame, CleaningReport]:
         current = frame
         rejected: dict[RejectionReason, int] = {}
         for rule in self._rules:
@@ -112,5 +121,6 @@ class QualityPipeline:
         This is not equivalent to cleaning the concatenated dataset: callers must
         handle cross-chunk duplicates and global column selection separately.
         """
+        _warn_legacy_entry_point("QualityPipeline.run_stream")
         for chunk in chunks:
-            yield self.run(chunk)
+            yield self._run(chunk)

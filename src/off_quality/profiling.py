@@ -6,7 +6,7 @@ from dataclasses import dataclass
 
 import pandas as pd
 
-from .domain import QualityDimension
+from .domain import QualityDimension, _warn_legacy_entry_point
 
 
 @dataclass(frozen=True, slots=True)
@@ -45,6 +45,7 @@ class DataProfiler:
     """Single-purpose service producing immutable aggregate evidence."""
 
     def profile(self, frame: pd.DataFrame, key: str = "code") -> DatasetProfile:
+        _warn_legacy_entry_point("DataProfiler.profile")
         rows = len(frame)
         columns = tuple(
             ColumnProfile(
