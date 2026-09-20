@@ -5,8 +5,9 @@
 - Frozen source baseline: `ae5a6b1c6056376cd2cf7e378fa965ece216e33b`.
 - Planning authority: parent infrastructure commit `a6fafb0` and normative implementation-plan amendment `05b`.
 - Accepted predecessor: `AU-0` at `b84ad148011e2cdbec5d888c3295faaee49a5a32`.
-- Current atomic unit: `AU-1L`, legacy-boundary validation only.
-- No dataset, notebook, dependency declaration or experiment is authorized by AU-1L.
+- Accepted AU-1L implementation: `49f06bf6a9e3959cd62c3f5410e5b8ea39c5e3d0` — independent Software Red Team PASS in `portfolio-agents/reports/P3/07_au1l_legacy_review.md`.
+- Current gate: AU-1L PASS; AU-1 trust/domain and minimal `verify-config` CLI are the next authorized implementation scope.
+- This gate does not authorize data access, experiments, notebook execution, publication, push, merge or Jules live execution.
 
 ## Baseline receipt
 
@@ -45,7 +46,7 @@ Status meanings: `PLANNED` is architecture-only; `ACTIVE` is the current unit; `
 | 02 | AU-6 | T-LOCK-01..07 | `docs/evidence/au6_fixture_custody.md` | Release Custodian + Software Red Team | PLANNED |
 | 03 | AU-2B | T-SRC-01..04 | `docs/evidence/au2b_source.md` | Reproducibility Reviewer | PLANNED |
 | 04 | AU-3 | T-PARSE-01..05 | `docs/evidence/au3_parser.md` | Historical Integrity Reviewer | PLANNED |
-| 05 | AU-1L | T-LEG-01..04 | `docs/evidence/au1l_legacy.md` | Software Red Team | VALIDATION |
+| 05 | AU-1L | T-LEG-01..04 | `docs/evidence/au1l_legacy.md`; independent acceptance: `portfolio-agents/reports/P3/07_au1l_legacy_review.md` at `49f06bf6a9e3959cd62c3f5410e5b8ea39c5e3d0` | Software Red Team | PASS |
 | 06 | AU-5A | T-ART-01..08 | `docs/evidence/au5a_transactions.md` | Software Red Team | PLANNED |
 | 07 | AU-0..10 | T-MOD-01 | `docs/evidence/module_callers.md` | Software Architect + Software Red Team | ACTIVE |
 | 08 | AU-1, AU-10A..C | T-ROOT-01..04, T-CLI-01..03 | `docs/evidence/composition_root.md` | Software Red Team | PLANNED |
@@ -66,4 +67,4 @@ Status meanings: `PLANNED` is architecture-only; `ACTIVE` is the current unit; `
 
 ## Current gate
 
-AU-0 received independent PASS at `b84ad14`, authorizing AU-1L only. AU-1L remains in validation until T-LEG-01..04, the full regression suite, Ruff, strict mypy, compilation and independent Software Red Team review pass. AU-1, data access, notebook execution, publication and push remain unauthorized.
+AU-0 received independent PASS at `b84ad14`. AU-1L received independent Software Red Team PASS for exact commit `49f06bf6a9e3959cd62c3f5410e5b8ea39c5e3d0`; see `portfolio-agents/reports/P3/07_au1l_legacy_review.md`. That review records 63 tests, Ruff, strict mypy, compilation and T-LEG-01..04 PASS. AU-1 trust/domain and the minimal `verify-config` CLI are the next authorized implementation scope. Data access, experiments, notebook execution, publication, push, merge and Jules live execution remain unauthorized.
