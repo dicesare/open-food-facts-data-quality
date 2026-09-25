@@ -1,0 +1,34 @@
+{
+  "files": [
+    {
+      "path": "compute_envelope.json",
+      "sha256": "1762249824780ec38be2333cd27ce7ae1f6befbff25a3604031669d05eb5b372"
+    },
+    {
+      "path": "evaluation_protocol.json",
+      "sha256": "c4d785057886e6d2e4f16087063ccf3b5601c1a0a5bef898e8cb53cc08f6a392"
+    },
+    {
+      "path": "experiment_register.json",
+      "sha256": "377cd639f6e66862ea72cc180ccdefadd3c92b16a078ced61add52035619b979"
+    },
+    {
+      "path": "feature_lineage.json",
+      "sha256": "523e986c03a96658d0eea6f2217d8147d5ab9333a364d1e165664511cdb67744"
+    },
+    {
+      "path": "governance.json",
+      "sha256": "422e7932c465e6dc8387fba4a18caf005eaeaf6f2fa4980ed8fa25eb8d534475"
+    },
+    {
+      "path": "slice_support.json",
+      "sha256": "34b984a7da4762fe4e193fbc84ca4db31bea99c194436cc51a49a853750e689b"
+    },
+    {
+      "path": "tolerance_register.json",
+      "sha256": "82b55e5c3fce0cb79f750b40b04460417c970d3b10a75e637ed930b612ac8077"
+    }
+  ],
+  "status": "FROZEN_FOR_ARCHITECTURE_REAUDIT",
+  "version": "1.0.3"
+}

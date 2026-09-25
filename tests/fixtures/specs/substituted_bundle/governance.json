@@ -1,0 +1,34 @@
+{
+  "current_snapshot_in_scope": false,
+  "license_gate": {
+    "artifact": "docs/data_license.md",
+    "deadline": "before E0 execution",
+    "failure": "execution blocked",
+    "owner": "Historical Integrity Reviewer"
+  },
+  "original_git_provenance": {
+    "effect": "historical notebook claims remain HISTORICAL_OUTPUT",
+    "owner": "Forensic Project Auditor",
+    "status": "UNRESOLVED"
+  },
+  "privacy": {
+    "example_id": "run-local salted hash",
+    "forbidden_fields": [
+      "creator",
+      "url",
+      "ingredients_text",
+      "purchase_places",
+      "exact_barcode"
+    ],
+    "minimum_aggregate_products": 10,
+    "small_cells": "suppressed",
+    "validation": "automated generated-report scan"
+  },
+  "version": "1.0.0",
+  "source_identity": {
+    "archive_bytes": 88117814,
+    "archive_sha256": "4419224913cc0351840b080572096a977bae8ea240a661342ca9d30e79d32de8",
+    "zip_member": "fr.openfoodfacts.org.products.csv",
+    "zip_member_bytes": 847427235
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "cpu_cores": 4,
+  "fold_wall_minutes": 45,
+  "full_method_wall_minutes": 240,
+  "methods": {
+    "iterative": {
+      "fallback": "reduce registered predictor allowlist, never silent row reduction",
+      "max_fit_rows": 120000
+    },
+    "knn": {
+      "fallback": "INFEASIBLE_UNDER_BUDGET; no approximate substitution",
+      "max_eval_rows": 20000,
+      "max_fit_rows": 50000
+    },
+    "median": {
+      "fallback": "chunked exact aggregate or FAIL",
+      "max_rows": "full"
+    },
+    "pca": {
+      "fallback": "batch transform and second-seed sensitivity",
+      "max_fit_rows": 120000
+    }
+  },
+  "peak_rss_stop_gib": 14,
+  "ram_gib": 16,
+  "sample_representativeness_max_abs_standardized_difference": 0.1,
+  "temp_disk_gib": 20,
+  "temp_stop_gib": 18,
+  "version": "1.0.0"
+}

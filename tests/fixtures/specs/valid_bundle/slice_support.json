@@ -1,0 +1,30 @@
+{
+  "bootstrap": {
+    "interval": "percentile",
+    "paired_resamples": true,
+    "replicates": 1000,
+    "unit": "duplicate_cluster"
+  },
+  "development": {
+    "minimum_clusters": 100,
+    "minimum_masked_values": 500
+  },
+  "locked": {
+    "minimum_clusters": 50,
+    "minimum_masked_values": 200
+  },
+  "missing_label": "explicit MISSING_LABEL",
+  "required_intersections": [
+    "pnns_x_completeness",
+    "country_multiplicity_x_completeness"
+  ],
+  "required_slices": [
+    "top5_pnns_plus_OTHER",
+    "completeness_quintile",
+    "single_vs_multi_country",
+    "update_period_quartile_if_coverage_ge_0.80",
+    "frequent_vs_rare_category"
+  ],
+  "unsupported": "label UNSUPPORTED; never pool for selection",
+  "version": "1.0.0"
+}
