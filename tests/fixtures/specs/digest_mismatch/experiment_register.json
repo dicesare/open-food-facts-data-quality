@@ -1,0 +1,104 @@
+{
+  "confirmatory_families": [
+    {
+      "comparison": "robust fat_100g vs saturated_fat_100g association",
+      "family_size": 5,
+      "groups": [
+        "Sugary snacks",
+        "Fish meat eggs",
+        "Beverages",
+        "Milk and dairy products",
+        "Cereals and potatoes"
+      ],
+      "id": "E6_FAT_SAT"
+    },
+    {
+      "comparison": "energy_100g differences across nutrition_grade_fr",
+      "family_size": 5,
+      "groups": [
+        "Sugary snacks",
+        "Fish meat eggs",
+        "Beverages",
+        "Milk and dairy products",
+        "Cereals and potatoes"
+      ],
+      "id": "E6_ENERGY_GRADE",
+      "interpretation": "partly definitional"
+    }
+  ],
+  "confirmatory_groups": [
+    "Sugary snacks",
+    "Fish meat eggs",
+    "Beverages",
+    "Milk and dairy products",
+    "Cereals and potatoes"
+  ],
+  "experiments": [
+    {
+      "decision": "reconstruct only unique all-gate pairs; quarantine otherwise",
+      "id": "E0",
+      "null": "no fragment pair has exactly one semantically valid reconstruction",
+      "population": "HISTORICAL_2017_RAW_PARSE",
+      "primary_endpoint": "uniquely_valid_reconstructed_pairs"
+    },
+    {
+      "decision": "canonical tags are primary; all deltas reported",
+      "id": "E1",
+      "null": "historical substring and canonical France sets are identical",
+      "population": "HISTORICAL_2017_RAW_PARSE + CORRECTED",
+      "primary_endpoint": "substring_vs_canonical_symmetric_difference"
+    },
+    {
+      "decision": "quarantine every unresolved nutrition conflict",
+      "id": "E2",
+      "null": "row-order and governed survivor policies retain equivalent information",
+      "population": "canonical France",
+      "primary_endpoint": "unresolved_nutrition_conflict_rate"
+    },
+    {
+      "decision": "enforce schema invariants; plausibility remains flags without external evidence",
+      "id": "E3",
+      "null": "proposed invariants flag no structural invalidity",
+      "population": "post-E2",
+      "primary_endpoint": "schema_invariant_violations"
+    },
+    {
+      "decision": "confirm only if 95% cluster CI excludes 0 and abs difference >=0.05 and power gate passes",
+      "id": "E4",
+      "null": "absolute difference below 0.05",
+      "population": "post-E3",
+      "primary_endpoint": "missingness_rate_difference"
+    },
+    {
+      "decision": "all per-field tolerances and power/coverage gates must pass",
+      "id": "E5",
+      "null": "candidate improvement below 5%",
+      "population": "eligible observed donors",
+      "primary_endpoint": "paired_nMAE_delta_vs_global_median"
+    },
+    {
+      "decision": "confirm only if CI excludes 0, BH q<=0.05 and power gate passes",
+      "id": "E6",
+      "null": "absolute effect below 0.20",
+      "population": "accepted analysis population",
+      "primary_endpoint": "robust_standardized_effect"
+    },
+    {
+      "decision": "name components only when selection and stability gates pass",
+      "id": "E7",
+      "null": "selected PCA subspace fails angle/congruence tolerances",
+      "population": "complete-case + accepted imputation",
+      "primary_endpoint": "selected_subspace_stability"
+    },
+    {
+      "decision": "each claim passes independently; no aggregate override",
+      "id": "E8",
+      "null": "historical claim is not reproduced within registered tolerance",
+      "population": "HISTORICAL_2017_RAW_PARSE",
+      "primary_endpoint": "claim_level_reproduction_status"
+    }
+  ],
+  "result_data_seen": false,
+  "status": "FROZEN_FOR_ARCHITECTURE_REVIEW",
+  "version": "1.0.0"
+}

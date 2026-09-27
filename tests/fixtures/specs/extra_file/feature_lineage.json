@@ -1,0 +1,86 @@
+{
+  "exception_process": "ADR plus independent DS approval before execution",
+  "globally_forbidden_predictors": [
+    "nutrition_grade_fr",
+    "nutrition_score_fr_100g",
+    "nutrition_score_uk_100g",
+    "nutrition_grade_uk"
+  ],
+  "predictor_allowlist": {
+    "carbohydrates_100g": [
+      "fat_100g",
+      "fiber_100g",
+      "proteins_100g",
+      "salt_100g"
+    ],
+    "energy_100g": [
+      "fat_100g",
+      "carbohydrates_100g",
+      "fiber_100g",
+      "proteins_100g",
+      "salt_100g"
+    ],
+    "fat_100g": [
+      "carbohydrates_100g",
+      "fiber_100g",
+      "proteins_100g",
+      "salt_100g"
+    ],
+    "fiber_100g": [
+      "fat_100g",
+      "carbohydrates_100g",
+      "proteins_100g",
+      "salt_100g"
+    ],
+    "proteins_100g": [
+      "fat_100g",
+      "carbohydrates_100g",
+      "fiber_100g",
+      "salt_100g"
+    ],
+    "salt_100g": [
+      "fat_100g",
+      "carbohydrates_100g",
+      "fiber_100g",
+      "proteins_100g"
+    ],
+    "saturated_fat_100g": [
+      "fat_100g",
+      "carbohydrates_100g",
+      "fiber_100g",
+      "proteins_100g",
+      "salt_100g"
+    ],
+    "sodium_100g": [
+      "fat_100g",
+      "carbohydrates_100g",
+      "fiber_100g",
+      "proteins_100g"
+    ],
+    "sugars_100g": [
+      "carbohydrates_100g",
+      "fat_100g",
+      "fiber_100g",
+      "proteins_100g",
+      "salt_100g"
+    ]
+  },
+  "rules": [
+    "exclude target itself",
+    "exclude downstream derivatives",
+    "exclude target supercomponents and subcomponents unless explicitly listed",
+    "salt and sodium cannot predict one another"
+  ],
+  "targets": [
+    "energy_100g",
+    "fat_100g",
+    "saturated_fat_100g",
+    "carbohydrates_100g",
+    "sugars_100g",
+    "fiber_100g",
+    "proteins_100g",
+    "salt_100g",
+    "sodium_100g"
+  ],
+  "version": "1.0.0"
+}

@@ -1,0 +1,55 @@
+{
+  "development": {
+    "folds": 5,
+    "repeats": 3,
+    "seeds": [
+      1701,
+      2718,
+      31415
+    ]
+  },
+  "fit_scope": "all learned operations fit inside training fold",
+  "identity_group": "resolved duplicate_cluster_id",
+  "locked": {
+    "assignment": "sha256(cluster_id + p3-locked-v1)",
+    "fraction": 0.2,
+    "reads": 1
+  },
+  "masking": {
+    "mcar_rates": [
+      0.1,
+      0.2,
+      0.3
+    ],
+    "minimum_locked_masked": 1000,
+    "minimum_observed_development": 5000,
+    "pattern_cumulative_coverage": 0.8,
+    "pattern_min_natural_rows": 500
+  },
+  "parser": {
+    "corrected_code_dtype": "string",
+    "decimal": ".",
+    "encoding": "utf-8",
+    "engine": "c",
+    "historical_dtype_inference": true,
+    "locale": "C",
+    "low_memory": false,
+    "on_bad_lines": "error",
+    "pandas": "2.2.3-candidate-reconstruction",
+    "python": "3.12",
+    "quotechar": "\"",
+    "separator": "\\t",
+    "doublequote": true,
+    "status": "candidate_until_E0_and_E8_pass"
+  },
+  "pca_selection": "use tolerance_register pca selection rule; historical k=3 only an E8 target",
+  "power_precision": {
+    "E4_detectable_difference_pp": 5,
+    "E6_detectable_standardized_effect": 0.2,
+    "failure": "downgrade comparison to exploratory before locked evaluation",
+    "family_alpha": 0.05,
+    "method": "prospective cluster-aware simulation using development cluster-size/variance estimates; 2000 simulations per comparison",
+    "power": 0.8
+  },
+  "version": "1.0.0"
+}
