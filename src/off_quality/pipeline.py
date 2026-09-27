@@ -124,3 +124,60 @@ class QualityPipeline:
         _warn_legacy_entry_point("QualityPipeline.run_stream")
         for chunk in chunks:
             yield self._run(chunk)
+
+
+def verify_config(bundle_path: str | __import__("pathlib").Path, expected_sha256: str) -> bool:
+    import hashlib
+    import json
+    from pathlib import Path
+
+    bundle_path = Path(bundle_path)
+    manifest_path = bundle_path / "freeze_manifest.json"
+
+    if not manifest_path.is_file():
+        return False
+
+    try:
+        manifest_bytes = manifest_path.read_bytes()
+        actual_sha256 = hashlib.sha256(manifest_bytes).hexdigest()
+
+        if actual_sha256 != expected_sha256:
+            return False
+
+        manifest = json.loads(manifest_bytes)
+
+        manifest_files = manifest.get("files", [])
+        expected_paths = {f["path"]: f["sha256"] for f in manifest_files}
+
+        actual_paths = {p.name for p in bundle_path.iterdir() if p.is_file()}
+        expected_names = set(expected_paths.keys())
+        expected_names.add("freeze_manifest.json")
+
+        if actual_paths != expected_names:
+            return False
+
+        for f in manifest_files:
+            file_path = bundle_path / f["path"]
+            if not file_path.is_file():
+                return False
+            if hashlib.sha256(file_path.read_bytes()).hexdigest() != f["sha256"]:
+                return False
+
+        gov_path = bundle_path / "governance.json"
+        if gov_path.is_file():
+            gov = json.loads(gov_path.read_bytes())
+            if not isinstance(gov.get("privacy", {}).get("forbidden_fields"), list):
+                return False
+
+        fl_path = bundle_path / "feature_lineage.json"
+        if fl_path.is_file():
+            fl = json.loads(fl_path.read_bytes())
+            allowlist = fl.get("predictor_allowlist", {})
+            if "salt_100g" in allowlist.get("sodium_100g", []):
+                return False
+            if "sodium_100g" in allowlist.get("salt_100g", []):
+                return False
+
+        return True
+    except (ValueError, KeyError, FileNotFoundError, json.JSONDecodeError, AttributeError):
+        return False
