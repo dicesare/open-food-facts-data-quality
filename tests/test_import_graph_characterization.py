@@ -6,6 +6,7 @@ PACKAGE_ROOT = Path(__file__).parents[1] / "src" / "off_quality"
 EXPECTED_INTERNAL_IMPORTS = {
     "__init__": {"cleaning", "domain", "imputation", "pipeline", "profiling"},
     "cleaning": {"domain", "pipeline"},
+    "cli": {"pipeline"},
     "domain": set(),
     "imputation": {"domain"},
     "pipeline": {"domain"},
@@ -38,4 +39,3 @@ def test_pipeline_is_the_only_current_composition_module() -> None:
 
     assert "pipeline" in implementation_modules
     assert "pipelines" not in implementation_modules
-    assert "cli" not in implementation_modules
