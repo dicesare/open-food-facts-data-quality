@@ -116,4 +116,3 @@ def test_t_foundation_root_02_config_not_composition_root():
         assert not hasattr(config, "build_pipeline")
     except ImportError:
         pytest.fail("off_quality.config module not found")
-
